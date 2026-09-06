@@ -1,0 +1,62 @@
+{
+  "id": "topstep",
+  "name": "Topstep",
+  "updatedAt": "2026-10-19",
+  "generalRules": {
+    "sessionCloseTimeEt": "16:10",
+    "newsTradingAllowed": true,
+    "overnightAllowed": false,
+    "evaluationConsistencyPercent": 50.0,
+    "fundedConsistencyPercent": null,
+    "minTradingDaysEvaluation": 2,
+    "notes": [
+      "Maximum Loss Limit es EOD (al cierre del día), no persigue ganancias flotantes intradía.",
+      "Regla de consistencia del 50% en el Trading Combine (mejor día <= 50% del Profit Target).",
+      "En Express Funded requiere 5 días ganadores de >= $200 para cada solicitud de retiro."
+    ]
+  },
+  "plans": [
+    {
+      "id": "topstep-50k",
+      "name": "Topstep 50k Combine",
+      "accountSizeUsd": 50000,
+      "profitTargetUsd": 3000,
+      "maxDrawdownUsd": 2000,
+      "drawdownType": "EndOfDayTrailing",
+      "dailyLossLimitUsd": 1000,
+      "dailyLossType": "SoftBreach",
+      "safetyNetBufferUsd": 2000,
+      "maxMiniContracts": 5,
+      "maxMicroContracts": 50,
+      "fundedInitialMaxMiniContracts": 2
+    },
+    {
+      "id": "topstep-100k",
+      "name": "Topstep 100k Combine",
+      "accountSizeUsd": 100000,
+      "profitTargetUsd": 6000,
+      "maxDrawdownUsd": 3000,
+      "drawdownType": "EndOfDayTrailing",
+      "dailyLossLimitUsd": 2000,
+      "dailyLossType": "SoftBreach",
+      "safetyNetBufferUsd": 3000,
+      "maxMiniContracts": 10,
+      "maxMicroContracts": 100,
+      "fundedInitialMaxMiniContracts": 3
+    },
+    {
+      "id": "topstep-150k",
+      "name": "Topstep 150k Combine",
+      "accountSizeUsd": 150000,
+      "profitTargetUsd": 9000,
+      "maxDrawdownUsd": 4500,
+      "drawdownType": "EndOfDayTrailing",
+      "dailyLossLimitUsd": 3000,
+      "dailyLossType": "SoftBreach",
+      "safetyNetBufferUsd": 4500,
+      "maxMiniContracts": 15,
+      "maxMicroContracts": 150,
+      "fundedInitialMaxMiniContracts": 3
+    }
+  ]
+}

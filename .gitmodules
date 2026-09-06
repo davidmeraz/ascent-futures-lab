@@ -1,0 +1,3 @@
+[submodule "ascent-backtester"]
+	path = ascent-backtester
+	url = https://github.com/davidmeraz/ascent-backtester.git

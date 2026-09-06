@@ -1,0 +1,62 @@
+//@version=5
+indicator("dav3e Anchored VWAP", shorttitle="dav3e_vwap", overlay=true)
+
+// === Parámetros ===
+anchorSession = input.session("0930-1600", "Sesión de anclaje (Hora del Exchange)", group="Sesión")
+showBands = input.bool(true, "Mostrar bandas Sigma (±1σ, ±2σ)", group="Visual")
+band1Mult = input.float(1.0, "Multiplicador Banda 1", step=0.25, group="Visual")
+band2Mult = input.float(2.0, "Multiplicador Banda 2", step=0.25, group="Visual")
+extendedDistancePts = input.float(6.0, "Distancia extendida (puntos)", step=0.5, group="Contexto")
+slopeLookback = input.int(5, "Barras para pendiente (Slope)", minval=1, group="Contexto")
+showHud = input.bool(true, "Mostrar panel de lectura (HUD)", group="Visual")
+
+// === Cálculo de VWAP anclado a la apertura de la sesión ===
+inSession = not na(time(timeframe.period, anchorSession))
+isNewSession = inSession and not inSession[1]
+
+var float sumPV = 0.0
+var float sumV = 0.0
+var float sumP2V = 0.0
+
+if isNewSession
+    sumPV := 0.0
+    sumV := 0.0
+    sumP2V := 0.0
+
+typicalPrice = hlc3
+if inSession and volume > 0
+    sumPV += typicalPrice * volume
+    sumV += volume
+    sumP2V += typicalPrice * typicalPrice * volume
+
+vwapVal = (inSession and sumV > 0) ? (sumPV / sumV) : na
+variance = (inSession and sumV > 0) ? math.max(0.0, (sumP2V / sumV) - (vwapVal * vwapVal)) : na
+stdevVal = not na(variance) ? math.sqrt(variance) : na
+
+upper1 = showBands and not na(vwapVal) ? vwapVal + stdevVal * band1Mult : na
+lower1 = showBands and not na(vwapVal) ? vwapVal - stdevVal * band1Mult : na
+upper2 = showBands and not na(vwapVal) ? vwapVal + stdevVal * band2Mult : na
+lower2 = showBands and not na(vwapVal) ? vwapVal - stdevVal * band2Mult : na
+
+// === Contexto: Distancia y Pendiente ===
+distPts = not na(vwapVal) ? (close - vwapVal) : na
+slopePts = not na(vwapVal) and not na(vwapVal[slopeLookback]) ? (vwapVal - vwapVal[slopeLookback]) : na
+isExtended = not na(distPts) and math.abs(distPts) >= extendedDistancePts
+
+lineColor = close >= vwapVal ? color.new(#E6B84D, 0) : color.new(#9F7AEA, 0)
+plot(vwapVal, "VWAP", color=lineColor, linewidth=2, style=plot.style_linebr)
+plot(upper1, "+1σ", color=color.new(#94A3B8, 45), style=plot.style_linebr)
+plot(lower1, "-1σ", color=color.new(#94A3B8, 45), style=plot.style_linebr)
+plot(upper2, "+2σ", color=color.new(#64748B, 60), style=plot.style_linebr)
+plot(lower2, "-2σ", color=color.new(#64748B, 60), style=plot.style_linebr)
+plotshape(isExtended ? vwapVal : na, "Extendida", style=shape.circle, location=location.absolute, color=color.new(#F59E0B, 0), size=size.tiny)
+
+// === HUD en esquina ===
+var table hud = table.new(position.top_right, 2, 3, bgcolor=color.new(#0F172A, 15), border_width=1)
+if barstate.islast and showHud
+    table.cell(hud, 0, 0, "VWAP Dist", text_color=color.white, text_size=size.small)
+    table.cell(hud, 1, 0, not na(distPts) ? str.tostring(distPts, "#.##") + " pts" : "--", text_color=lineColor, text_size=size.small)
+    table.cell(hud, 0, 1, "Slope (" + str.tostring(slopeLookback) + ")", text_color=color.white, text_size=size.small)
+    table.cell(hud, 1, 1, not na(slopePts) ? str.tostring(slopePts, "#.##") : "--", text_color=color.white, text_size=size.small)
+    table.cell(hud, 0, 2, "Estado", text_color=color.white, text_size=size.small)
+    table.cell(hud, 1, 2, isExtended ? "EXTENDIDO" : "NORMAL", text_color=isExtended ? color.orange : color.lime, text_size=size.small)

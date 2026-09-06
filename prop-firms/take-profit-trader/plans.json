@@ -1,0 +1,62 @@
+{
+  "id": "take-profit-trader",
+  "name": "Take Profit Trader",
+  "updatedAt": "2026-10-19",
+  "generalRules": {
+    "sessionCloseTimeEt": "17:00",
+    "newsTradingAllowed": false,
+    "overnightAllowed": false,
+    "evaluationConsistencyPercent": 50.0,
+    "fundedConsistencyPercent": null,
+    "minTradingDaysEvaluation": 5,
+    "notes": [
+      "En evaluación el Drawdown es EOD; al pasar a cuenta PRO cambia a Intradía Trailing hasta completar el Buffer.",
+      "Retiros habilitados desde el día 1 una vez superado el Buffer.",
+      "En cuenta PRO no se permite operar en anuncios de alta volatilidad (FOMC, CPI, NFP +/- 1 min)."
+    ]
+  },
+  "plans": [
+    {
+      "id": "tpt-25k",
+      "name": "TPT 25k",
+      "accountSizeUsd": 25000,
+      "profitTargetUsd": 1500,
+      "maxDrawdownUsd": 1500,
+      "drawdownType": "EndOfDayTrailing",
+      "dailyLossLimitUsd": 500,
+      "dailyLossType": "HardBreach",
+      "safetyNetBufferUsd": 1500,
+      "maxMiniContracts": 3,
+      "maxMicroContracts": 30,
+      "fundedInitialMaxMiniContracts": 3
+    },
+    {
+      "id": "tpt-50k",
+      "name": "TPT 50k",
+      "accountSizeUsd": 50000,
+      "profitTargetUsd": 3000,
+      "maxDrawdownUsd": 2000,
+      "dailyLossLimitUsd": 1100,
+      "drawdownType": "EndOfDayTrailing",
+      "dailyLossType": "HardBreach",
+      "safetyNetBufferUsd": 2000,
+      "maxMiniContracts": 6,
+      "maxMicroContracts": 60,
+      "fundedInitialMaxMiniContracts": 6
+    },
+    {
+      "id": "tpt-100k",
+      "name": "TPT 100k",
+      "accountSizeUsd": 100000,
+      "profitTargetUsd": 6000,
+      "maxDrawdownUsd": 3000,
+      "dailyLossLimitUsd": 2200,
+      "drawdownType": "EndOfDayTrailing",
+      "dailyLossType": "HardBreach",
+      "safetyNetBufferUsd": 3000,
+      "maxMiniContracts": 12,
+      "maxMicroContracts": 120,
+      "fundedInitialMaxMiniContracts": 12
+    }
+  ]
+}

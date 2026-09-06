@@ -1,0 +1,77 @@
+{
+  "id": "apex",
+  "name": "Apex Trader Funding",
+  "updatedAt": "2026-10-19",
+  "generalRules": {
+    "sessionCloseTimeEt": "16:59",
+    "newsTradingAllowed": true,
+    "overnightAllowed": false,
+    "evaluationConsistencyPercent": null,
+    "fundedConsistencyPercent": 30.0,
+    "minTradingDaysEvaluation": 7,
+    "notes": [
+      "El Trailing Drawdown es intradía y sigue el máximo beneficio flotante (no realizado).",
+      "En cuenta PA se congela el drawdown al alcanzar Balance Inicial + MaxDrawdown + $100.",
+      "Regla MAE 30%: no exceder 30% de pérdida abierta respecto al balance de ganancias del inicio del día.",
+      "No usar relación riesgo:beneficio peor a 5:1."
+    ]
+  },
+  "plans": [
+    {
+      "id": "apex-25k",
+      "name": "Apex 25k Full",
+      "accountSizeUsd": 25000,
+      "profitTargetUsd": 1500,
+      "maxDrawdownUsd": 1500,
+      "drawdownType": "IntradayTrailing",
+      "dailyLossLimitUsd": null,
+      "dailyLossType": "None",
+      "safetyNetBufferUsd": 1600,
+      "maxMiniContracts": 4,
+      "maxMicroContracts": 40,
+      "fundedInitialMaxMiniContracts": 2
+    },
+    {
+      "id": "apex-50k",
+      "name": "Apex 50k Full",
+      "accountSizeUsd": 50000,
+      "profitTargetUsd": 3000,
+      "maxDrawdownUsd": 2500,
+      "drawdownType": "IntradayTrailing",
+      "dailyLossLimitUsd": null,
+      "dailyLossType": "None",
+      "safetyNetBufferUsd": 2600,
+      "maxMiniContracts": 10,
+      "maxMicroContracts": 100,
+      "fundedInitialMaxMiniContracts": 5
+    },
+    {
+      "id": "apex-100k",
+      "name": "Apex 100k Full",
+      "accountSizeUsd": 100000,
+      "profitTargetUsd": 6000,
+      "maxDrawdownUsd": 3000,
+      "drawdownType": "IntradayTrailing",
+      "dailyLossLimitUsd": null,
+      "dailyLossType": "None",
+      "safetyNetBufferUsd": 3100,
+      "maxMiniContracts": 14,
+      "maxMicroContracts": 140,
+      "fundedInitialMaxMiniContracts": 7
+    },
+    {
+      "id": "apex-150k",
+      "name": "Apex 150k Full",
+      "accountSizeUsd": 150000,
+      "profitTargetUsd": 9000,
+      "maxDrawdownUsd": 5000,
+      "drawdownType": "IntradayTrailing",
+      "dailyLossLimitUsd": null,
+      "dailyLossType": "None",
+      "safetyNetBufferUsd": 5100,
+      "maxMiniContracts": 17,
+      "maxMicroContracts": 170,
+      "fundedInitialMaxMiniContracts": 8
+    }
+  ]
+}

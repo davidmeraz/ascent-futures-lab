@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PropFirmDefinition",
+  "type": "object",
+  "required": ["id", "name", "updatedAt", "generalRules", "plans"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "updatedAt": { "type": "string", "format": "date" },
+    "generalRules": {
+      "type": "object",
+      "required": ["sessionCloseTimeEt", "newsTradingAllowed", "overnightAllowed"],
+      "properties": {
+        "sessionCloseTimeEt": { "type": "string" },
+        "newsTradingAllowed": { "type": "boolean" },
+        "overnightAllowed": { "type": "boolean" },
+        "evaluationConsistencyPercent": { "type": ["number", "null"] },
+        "fundedConsistencyPercent": { "type": ["number", "null"] },
+        "minTradingDaysEvaluation": { "type": "integer" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "plans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "accountSizeUsd",
+          "profitTargetUsd",
+          "maxDrawdownUsd",
+          "drawdownType",
+          "maxMiniContracts",
+          "maxMicroContracts"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "accountSizeUsd": { "type": "number" },
+          "profitTargetUsd": { "type": "number" },
+          "maxDrawdownUsd": { "type": "number" },
+          "drawdownType": {
+            "type": "string",
+            "enum": ["IntradayTrailing", "EndOfDayTrailing", "Static"]
+          },
+          "dailyLossLimitUsd": { "type": ["number", "null"] },
+          "dailyLossType": {
+            "type": "string",
+            "enum": ["None", "SoftBreach", "HardBreach"]
+          },
+          "safetyNetBufferUsd": { "type": "number" },
+          "maxMiniContracts": { "type": "integer" },
+          "maxMicroContracts": { "type": "integer" },
+          "fundedInitialMaxMiniContracts": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

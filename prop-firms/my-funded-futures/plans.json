@@ -1,0 +1,62 @@
+{
+  "id": "my-funded-futures",
+  "name": "MyFundedFutures",
+  "updatedAt": "2026-10-19",
+  "generalRules": {
+    "sessionCloseTimeEt": "16:59",
+    "newsTradingAllowed": true,
+    "overnightAllowed": false,
+    "evaluationConsistencyPercent": null,
+    "fundedConsistencyPercent": 40.0,
+    "minTradingDaysEvaluation": 2,
+    "notes": [
+      "Drawdown EOD en ambos planes (Starter y Expert).",
+      "En plan Starter hay regla de consistencia del 40% en Sim Funded y restricción en noticias Tier 1 (+/- 2 min).",
+      "En plan Expert no hay Daily Loss Limit ni regla de consistencia."
+    ]
+  },
+  "plans": [
+    {
+      "id": "mffu-starter-50k",
+      "name": "MFFU Starter 50k",
+      "accountSizeUsd": 50000,
+      "profitTargetUsd": 3000,
+      "maxDrawdownUsd": 2500,
+      "drawdownType": "EndOfDayTrailing",
+      "dailyLossLimitUsd": 1200,
+      "dailyLossType": "SoftBreach",
+      "safetyNetBufferUsd": 2600,
+      "maxMiniContracts": 5,
+      "maxMicroContracts": 50,
+      "fundedInitialMaxMiniContracts": 2
+    },
+    {
+      "id": "mffu-expert-50k",
+      "name": "MFFU Expert 50k",
+      "accountSizeUsd": 50000,
+      "profitTargetUsd": 4000,
+      "maxDrawdownUsd": 2000,
+      "drawdownType": "EndOfDayTrailing",
+      "dailyLossLimitUsd": null,
+      "dailyLossType": "None",
+      "safetyNetBufferUsd": 2100,
+      "maxMiniContracts": 5,
+      "maxMicroContracts": 50,
+      "fundedInitialMaxMiniContracts": 5
+    },
+    {
+      "id": "mffu-expert-100k",
+      "name": "MFFU Expert 100k",
+      "accountSizeUsd": 100000,
+      "profitTargetUsd": 8000,
+      "maxDrawdownUsd": 3000,
+      "drawdownType": "EndOfDayTrailing",
+      "dailyLossLimitUsd": null,
+      "dailyLossType": "None",
+      "safetyNetBufferUsd": 3100,
+      "maxMiniContracts": 10,
+      "maxMicroContracts": 100,
+      "fundedInitialMaxMiniContracts": 10
+    }
+  ]
+}
